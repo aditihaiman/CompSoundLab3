@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     audioCtx.resume();
 
     let brownNoise = createBrownNoise();
+    let globalGain = audioCtx.createGain();
     init();
 
     // init();
@@ -42,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         brownNoise.connect(LPF1).connect(RHPF).connect(globalGain).connect(audioCtx.destination);    
         brownNoise.connect(LPF2).connect(LPF2Gain).connect(RHPF.frequency);
 
+        brownNoise.start()
     }
 
     function playBrook(){
@@ -49,13 +51,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         if (audioCtx.state === 'suspended') {
             audioCtx.resume();
-            brownNoise.start();
+            // brownNoise.start();
+            globalGain.gain.value = 0.1;
 
         }
     
         if (audioCtx.state === 'running') {
             audioCtx.suspend();
-            brownNoise.stop();
+            // brownNoise.stop();
+            globalGain.gain.value = 0;
 
         }
         
@@ -64,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function playBird(){
 
         createBirdCall();
-        
+        globalGain.gain.value = 0;
         if (audioCtx.state === 'suspended') {
             audioCtx.resume();
         }
@@ -104,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let modulatorFreq2 = audioCtx.createOscillator();
 
         //create gain
-        let globalGain = audioCtx.createGain();
+        let globalGain2 = audioCtx.createGain();
         let modIndex = audioCtx.createGain();
         let modIndex2 = audioCtx.createGain();
 
@@ -114,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
         //set gain values
-        globalGain.gain.value = 0.05;
+        globalGain2.gain.value = 0.05;
         modIndex.gain.value = 400;
         modIndex2.gain.value = 400;
 
@@ -135,13 +139,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         //connect nodes
         modulatorFreq.connect(modIndex).connect(osc1.frequency);
-        osc1.connect(RHPF1).connect(globalGain);
+        osc1.connect(RHPF1).connect(globalGain2);
 
         modulatorFreq2.connect(modIndex2).connect(osc2.frequency);
-        osc2.connect(RHPF2).connect(globalGain);
+        osc2.connect(RHPF2).connect(globalGain2);
 
 
-        globalGain.connect(audioCtx.destination);
+        globalGain2.connect(audioCtx.destination);
 
 
         //start inputs

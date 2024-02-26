@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <script src="https://cdn.ctat.cs.cmu.edu/releases/latest/jquery.min.js"></script>
+
+        <script src="bird.js"></script>
+    </head>
+    <body>
+        <a href="index.html">Back</a>
+
+        <br><br>
+
+        <label for="bird">Bird Call</label><br>
+        <button id="bird">Play</button>
+        <br><br>
+
+        <div>
+            With this sound, I was aiming to recreate a trilling bird call. Songbirds can
+            create complex songs because they have a syrinx, which is like the human larynx
+            but with two air passages instead of one. This allows birds to sing two notes at
+            once and be very agile in their songs. To recreate this, I used to separate sources
+            and put them through separate resonant highpass filters. I chose resonant filters
+            to have the same effect as the vibrating membranes of the syrinx. For both tones,
+            I used FM synthesis to produce two overlapping trills. The final result is a quick,
+            two-toned trill. 
+        </div>
+
+        <div>
+            <img src="diagram.jpg" height="500">
+        </div>
+        
+    </body>
+</html>
